@@ -16,7 +16,7 @@ sensirion_common_sources = ${sensirion_common_dir}/sensirion_arch_config.h \
                            ${sensirion_common_dir}/sensirion_common.c
 
 svm40_sources = ${sensirion_common_sources} \
-                ${svm40_dir}/svm40_driver_version.h ${svm40_dir}/svm40_driver_version.c \
+                ${svm40_dir}/svm40_git_version.h ${svm40_dir}/svm40_git_version.c \
                 ${svm40_dir}/svm40.h ${svm40_dir}/svm40.c
 
 hw_i2c_sources = ${hw_i2c_impl_src}
