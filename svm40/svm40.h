@@ -50,6 +50,8 @@ extern "C" {
 #define SVM40_CMD_GET_SERIAL_NUMBER 0xD033
 #define SVM40_CMD_DEVICE_RESET 0xD304
 
+#define SVM40_MEASUREMENT_INTERVAL_USEC 1000000
+
 /**
  * Check if SVM40 sensor is available
  *
@@ -101,6 +103,26 @@ int16_t svm40_start_continuous_measurement(void);
  * @return  NO_ERROR on success, an error code otherwise
  */
 int16_t svm40_stop_measurement(void);
+
+/**
+ * Read the current measured values.
+ *
+ * The firmware updates the measurement values every second. Polling data
+ * faster will return the same values. The first measurement is available one
+ * second after the start emasurement command is issued. Any readout prior to
+ * this will return zero initialized values.
+ *
+ * @note Only availabe in measurement mode.
+ * @param   voc_index           VOC algorithm output with a scaling value of 10.
+ * @param   relative_humidity   Compensated ambient humidity in %RH with a
+ *                              scaling factor of 100.
+ * @param   temperature         Compensated ambient temperature in degree
+ *                              celsius with a scaling factor of 200.
+ * @return  NO_ERROR on success, an error code otherwise
+ */
+int16_t svm40_read_measured_values_as_integers(int16_t* voc_index,
+                                               int16_t* relative_humidity,
+                                               int16_t* temperature);
 
 /**
  * Return the driver version

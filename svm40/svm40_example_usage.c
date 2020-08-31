@@ -78,5 +78,21 @@ int main(void) {
         printf("Error starting measurement: %i\n", error);
     }
 
+    for (;;) {
+        int16_t voc_index;
+        int16_t relative_humidity;
+        int16_t temperature;
+        sensirion_sleep_usec(SVM40_MEASUREMENT_INTERVAL_USEC); /* wait 1s */
+        error = svm40_read_measured_values_as_integers(&voc_index, &relative_humidity, &temperature);
+        if (error) {
+            printf("Error reading measurement values: %i\n", error);
+        } else {
+            printf("Measurement result\n");
+            printf(" VOC index: %.1f\n", voc_index / 10.0f);
+            printf(" Relative Humidity: %.2f%%RH\n", relative_humidity / 100.0f);
+            printf(" Temperature: %.2f°C\n", temperature / 200.0f);
+        }
+    }
+
     return 0;
 }
