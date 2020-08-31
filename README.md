@@ -59,3 +59,10 @@ Please check the [embedded-common](https://github.com/Sensirion/embedded-common)
 repository for further information and sample implementations.
 
 ---
+
+## Other Resources
+
+ * https://www.sensirion.com/en/environmental-sensors/gas-sensors/sgp40/ for
+   more information about SGP40 and the SVM40 evaluation module
+ * https://pypi.org/project/sensirion-shdlc-svm40/ for a Python driver for the
+   SVM40 module.
