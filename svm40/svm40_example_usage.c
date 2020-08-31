@@ -73,5 +73,10 @@ int main(void) {
                version_information.protocol_minor);
     }
 
+    error = svm40_start_continuous_measurement();
+    if (error) {
+        printf("Error starting measurement: %i\n", error);
+    }
+
     return 0;
 }

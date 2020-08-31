@@ -87,6 +87,14 @@ int16_t
 svm40_get_version(struct svm40_version_information* version_information);
 
 /**
+ * Start a continuous measurement.
+ *
+ * @note This command is only available in idle mode.
+ * @return  NO_ERROR on success, an error code otherwise
+ */
+int16_t svm40_start_continuous_measurement(void);
+
+/**
  * Return the driver version
  *
  * @return  Driver version string

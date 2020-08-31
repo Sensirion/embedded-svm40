@@ -41,6 +41,11 @@ int16_t svm40_probe(void) {
     return svm40_get_version(&version_information);
 }
 
+int16_t svm40_start_continuous_measurement(void) {
+    return sensirion_i2c_write_cmd(SVM40_I2C_ADDRESS,
+                                   SVM40_CMD_START_CONTINUOUS_MEASUREMENT);
+}
+
 int16_t
 svm40_get_version(struct svm40_version_information* version_information) {
     int16_t error;
