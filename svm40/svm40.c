@@ -36,6 +36,12 @@ const char* svm40_get_driver_version(void) {
     return SVM40_DRV_VERSION_STR;
 }
 
+int16_t svm40_get_serial(char* serial){
+	int16_t error;
+	error = 1;
+	return error;
+}
+
 int16_t svm40_probe(void) {
     struct svm40_version_information version_information;
     return svm40_get_version(&version_information);
