@@ -3,6 +3,11 @@
 Embedded I2C driver for the Sensirion SVM40 module which measures humidity,
 temperature and VOC in the air.
 
+Compared to the SVM30 (which is included in the
+https://github.com/Sensirion/embedded-sgp repository), the SVM40 combines
+multiple sensors with a separate micro controller and is thus quite different
+to use. For that reason the SVM40 driver lives in this separate repository.
+
 ## Download the Latest Driver Release
 
 **Download the latest ready-to-use driver bundle from the [releases
@@ -54,3 +59,10 @@ Please check the [embedded-common](https://github.com/Sensirion/embedded-common)
 repository for further information and sample implementations.
 
 ---
+
+## Other Resources
+
+ * https://www.sensirion.com/en/environmental-sensors/gas-sensors/sgp40/ for
+   more information about SGP40 and the SVM40 evaluation module
+ * https://pypi.org/project/sensirion-shdlc-svm40/ for a Python driver for the
+   SVM40 module.
