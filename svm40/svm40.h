@@ -52,6 +52,8 @@ extern "C" {
 
 #define SVM40_MEASUREMENT_INTERVAL_USEC 1000000
 #define SVM40_MAX_SERIAL_LEN 26
+#define SVM40_READ_DELAY 1000
+
 /**
  * Check if SVM40 sensor is available
  *
@@ -92,7 +94,7 @@ svm40_get_version(struct svm40_version_information* version_information);
  * Get Serial Number.
  *
  * @param serial Memory where the serial number is written into.
- * 				 The string is guaranteed to be zero terminated. 
+ * 				 The string is guaranteed to be zero terminated.
  * 				 It must be at least SVM40_MAX_SERIAL_LEN long.
  * @return NO_ERROR on success, an error code otherwise
  */
