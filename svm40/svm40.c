@@ -56,12 +56,14 @@ int16_t svm40_read_measured_values_as_integers(int16_t* voc_index,
                                                int16_t* temperature) {
     int16_t error;
     int16_t buffer[3];
-    error = sensirion_i2c_write_cmd(SVM40_I2C_ADDRESS, SVM40_CMD_READ_MEASURED_VALUES_AS_INTEGERS);
+    error = sensirion_i2c_write_cmd(SVM40_I2C_ADDRESS,
+                                    SVM40_CMD_READ_MEASURED_VALUES_AS_INTEGERS);
     if (error) {
         return error;
     }
 
-    error = sensirion_i2c_read_words(SVM40_I2C_ADDRESS, (uint16_t*) buffer, SENSIRION_NUM_WORDS(buffer));
+    error = sensirion_i2c_read_words(SVM40_I2C_ADDRESS, (uint16_t*)buffer,
+                                     SENSIRION_NUM_WORDS(buffer));
     if (error) {
         return error;
     }
