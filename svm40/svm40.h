@@ -53,6 +53,7 @@ extern "C" {
 #define SVM40_MEASUREMENT_INTERVAL_USEC 1000000
 #define SVM40_MAX_SERIAL_LEN 26
 #define SVM40_READ_DELAY 1000
+#define SVM40_DELAY_RESET_DEVICE 100000
 
 /**
  * Check if SVM40 sensor is available
@@ -175,6 +176,13 @@ int16_t svm40_read_measured_values_as_integers_with_raw_params(
  * @return  Driver version string
  */
 const char* svm40_get_driver_version(void);
+
+/**
+ * Executes a reset on the device.
+ *
+ * @return NO_ERROR on success, an error code otherwise
+ */
+int16_t svm40_device_reset(void);
 
 #ifdef __cplusplus
 }

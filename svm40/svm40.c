@@ -151,3 +151,7 @@ svm40_get_version(struct svm40_version_information* version_information) {
 
     return NO_ERROR;
 }
+
+int16_t svm40_device_reset(void) {
+    return sensirion_i2c_write_cmd(SVM40_I2C_ADDRESS, SVM40_CMD_DEVICE_RESET);
+}
