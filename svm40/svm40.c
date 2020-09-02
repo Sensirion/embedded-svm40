@@ -94,6 +94,36 @@ int16_t svm40_read_measured_values_as_integers(int16_t* voc_index,
     return NO_ERROR;
 }
 
+int16_t svm40_read_measured_values_as_integers_with_raw_params(
+    int16_t* voc_index, int16_t* relative_humidity, int16_t* temperature,
+    uint16_t* voc_ticks_raw, int16_t* uncompensated_relative_humidity,
+    int16_t* uncompensated_temperature) {
+    int16_t error;
+    uint16_t buffer[6];
+
+    error = sensirion_i2c_write_cmd(
+        SVM40_I2C_ADDRESS,
+        SVM40_CMD_READ_MEASURED_VALUES_AS_INTEGERS_WITH_RAW_PARAMETERS);
+    if (error) {
+        return error;
+    }
+
+    error = sensirion_i2c_read_words(SVM40_I2C_ADDRESS, buffer,
+                                     SENSIRION_NUM_WORDS(buffer));
+    if (error) {
+        return error;
+    }
+
+    *voc_index = (int16_t)buffer[0];
+    *relative_humidity = (int16_t)buffer[1];
+    *temperature = (int16_t)buffer[2];
+    *voc_ticks_raw = buffer[3];
+    *uncompensated_relative_humidity = (int16_t)buffer[4];
+    *uncompensated_temperature = (int16_t)buffer[5];
+
+    return NO_ERROR;
+}
+
 int16_t
 svm40_get_version(struct svm40_version_information* version_information) {
     int16_t error;
