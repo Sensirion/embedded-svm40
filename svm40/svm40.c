@@ -36,6 +36,25 @@ const char* svm40_get_driver_version(void) {
     return SVM40_DRV_VERSION_STR;
 }
 
+int16_t svm40_get_serial(char* serial) {
+    int16_t error;
+
+    error =
+        sensirion_i2c_write_cmd(SVM40_I2C_ADDRESS, SVM40_CMD_GET_SERIAL_NUMBER);
+    if (error != NO_ERROR) {
+        return error;
+    }
+    sensirion_sleep_usec(SVM40_READ_DELAY);
+    error = sensirion_i2c_read_words_as_bytes(
+        SVM40_I2C_ADDRESS, (uint8_t*)serial,
+        SVM40_MAX_SERIAL_LEN / SENSIRION_WORD_SIZE);
+    if (error != NO_ERROR) {
+        return error;
+    }
+    serial[SVM40_MAX_SERIAL_LEN - 1] = '\0';
+    return NO_ERROR;
+}
+
 int16_t svm40_probe(void) {
     struct svm40_version_information version_information;
     return svm40_get_version(&version_information);

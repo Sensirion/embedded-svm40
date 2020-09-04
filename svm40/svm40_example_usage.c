@@ -39,6 +39,9 @@
  */
 
 int main(void) {
+    int16_t error;
+    char serial_id[SVM40_MAX_SERIAL_LEN];
+
     const char* driver_version = svm40_get_driver_version();
     if (driver_version) {
         printf("SVM40 driver version %s\n", driver_version);
@@ -56,8 +59,15 @@ int main(void) {
     }
     printf("SVM40 sensor probing successful\n");
 
+    error = svm40_get_serial(serial_id);
+    if (error != NO_ERROR) {
+        printf("Error reading SVM40 serial: %i\n", error);
+    } else {
+        printf("Serial Number: %s\n", serial_id);
+    }
+
     struct svm40_version_information version_information;
-    int16_t error = svm40_get_version(&version_information);
+    error = svm40_get_version(&version_information);
     if (error) {
         printf("Error reading SVM40 version: %i\n", error);
     } else {
