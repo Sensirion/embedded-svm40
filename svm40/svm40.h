@@ -137,6 +137,39 @@ int16_t svm40_read_measured_values_as_integers(int16_t* voc_index,
                                                int16_t* temperature);
 
 /**
+ * Returns the new measurement results as integers along with the raw voc
+ * ticks and uncompensated RH/T values.
+ *
+ * The firmware updates the measurement values every second. Polling data
+ * faster will return the same values. The first measurement is available one
+ * second after the start measurement command is issued. Any readout prior to
+ * this will return zero initialized values.
+ *
+ * @note Only available in measurement mode.
+ * @param   voc_index                       VOC algorithm output
+ *                                          with a scaling value of 10.
+ * @param   relative_humidity               Compensated ambient
+ *                                          humidity in %RH with a scaling
+ *                                          factor of 100.
+ * @param   temperature                     Compensated ambient temperature
+ *                                          in degree celsius with a scaling
+ *                                          factor of 200.
+ * @param   voc_ticks_raw                   Raw VOC output ticks as
+ *                                          read from the SGP sensor.
+ * @param   uncompensated_relative_humidity Uncompensated raw humidity in
+ *                                          %RH as read from the SHT40 with a
+ *                                          scaling factor of 100.
+ * @param   uncompensated_temperature       Uncompensated raw temperature in
+ *                                          degrees celsius as read from the
+ *                                          SHT40 with a scaling of 200.
+ * @return  NO_ERROR on success, an error code otherwise
+ */
+int16_t svm40_read_measured_values_as_integers_with_raw_params(
+    int16_t* voc_index, int16_t* relative_humidity, int16_t* temperature,
+    uint16_t* voc_ticks_raw, int16_t* uncompensated_relative_humidity_raw,
+    int16_t* uncompensated_temperature);
+
+/**
  * Return the driver version
  *
  * @return  Driver version string
