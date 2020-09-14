@@ -5,11 +5,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
  * [`added`] Reset Device function 
-
-## [Unreleased]
-
  * [`added`] Get serial command to SVM40 driver
  * [`added`] Read Measured Values As Integers With Raw Parameters command to SVM40 driver 
+ * [`changed`] Makefile to only include needed files from embedded-common
 
 ## [0.1.0] - 2020-09-01
 
