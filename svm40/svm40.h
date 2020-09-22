@@ -52,8 +52,9 @@ extern "C" {
 
 #define SVM40_MEASUREMENT_INTERVAL_USEC 1000000
 #define SVM40_MAX_SERIAL_LEN 26
-#define SVM40_READ_DELAY 1000
-#define SVM40_DELAY_RESET_DEVICE 100000
+#define SVM40_CMD_DELAY 1000
+#define SVM40_STOP_MEASUREMENT_DELAY 50000
+#define SVM40_DEVICE_RESET_DELAY 100000
 
 /**
  * Check if SVM40 sensor is available
@@ -111,6 +112,7 @@ int16_t svm40_start_continuous_measurement(void);
 
 /**
  * Stop a running measurement.
+ * Waits 50ms until device is ready again.
  *
  * @note This command is only available in measurement mode.
  * @return  NO_ERROR on success, an error code otherwise
@@ -179,6 +181,7 @@ const char* svm40_get_driver_version(void);
 
 /**
  * Executes a reset on the device.
+ * Waits 100ms until device is ready again.
  *
  * @return NO_ERROR on success, an error code otherwise
  */
