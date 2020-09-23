@@ -44,7 +44,7 @@ int16_t svm40_get_serial(char* serial) {
     if (error != NO_ERROR) {
         return error;
     }
-    sensirion_sleep_usec(SVM40_READ_DELAY);
+    sensirion_sleep_usec(SVM40_CMD_DELAY);
     error = sensirion_i2c_read_words_as_bytes(
         SVM40_I2C_ADDRESS, (uint8_t*)serial,
         SVM40_MAX_SERIAL_LEN / SENSIRION_WORD_SIZE);
@@ -61,13 +61,19 @@ int16_t svm40_probe(void) {
 }
 
 int16_t svm40_start_continuous_measurement(void) {
-    return sensirion_i2c_write_cmd(SVM40_I2C_ADDRESS,
-                                   SVM40_CMD_START_CONTINUOUS_MEASUREMENT);
+    int16_t error;
+    error = sensirion_i2c_write_cmd(SVM40_I2C_ADDRESS,
+                                    SVM40_CMD_START_CONTINUOUS_MEASUREMENT);
+    sensirion_sleep_usec(SVM40_CMD_DELAY);
+    return error;
 }
 
 int16_t svm40_stop_measurement(void) {
-    return sensirion_i2c_write_cmd(SVM40_I2C_ADDRESS,
-                                   SVM40_CMD_STOP_MEASUREMENT);
+    int16_t error;
+    error =
+        sensirion_i2c_write_cmd(SVM40_I2C_ADDRESS, SVM40_CMD_STOP_MEASUREMENT);
+    sensirion_sleep_usec(SVM40_STOP_MEASUREMENT_DELAY);
+    return error;
 }
 
 int16_t svm40_read_measured_values_as_integers(int16_t* voc_index,
@@ -80,6 +86,7 @@ int16_t svm40_read_measured_values_as_integers(int16_t* voc_index,
     if (error) {
         return error;
     }
+    sensirion_sleep_usec(SVM40_CMD_DELAY);
 
     error = sensirion_i2c_read_words(SVM40_I2C_ADDRESS, (uint16_t*)buffer,
                                      SENSIRION_NUM_WORDS(buffer));
@@ -107,6 +114,7 @@ int16_t svm40_read_measured_values_as_integers_with_raw_params(
     if (error) {
         return error;
     }
+    sensirion_sleep_usec(SVM40_CMD_DELAY);
 
     error = sensirion_i2c_read_words(SVM40_I2C_ADDRESS, buffer,
                                      SENSIRION_NUM_WORDS(buffer));
@@ -133,6 +141,8 @@ svm40_get_version(struct svm40_version_information* version_information) {
         return error;
     }
 
+    sensirion_sleep_usec(SVM40_CMD_DELAY);
+
     error = sensirion_i2c_read_words_as_bytes(SVM40_I2C_ADDRESS, buffer,
                                               SENSIRION_NUM_WORDS(buffer));
 
@@ -153,5 +163,8 @@ svm40_get_version(struct svm40_version_information* version_information) {
 }
 
 int16_t svm40_device_reset(void) {
-    return sensirion_i2c_write_cmd(SVM40_I2C_ADDRESS, SVM40_CMD_DEVICE_RESET);
+    int16_t error;
+    error = sensirion_i2c_write_cmd(SVM40_I2C_ADDRESS, SVM40_CMD_DEVICE_RESET);
+    sensirion_sleep_usec(SVM40_DEVICE_RESET_DELAY);
+    return error;
 }
