@@ -3,3 +3,6 @@
 /svm40/svm40_example_usage
 /svm40/user_config.inc
 /svm40/svm40_git_version.c
+/i2c-mux-testbed/
+/tests/svm40-test-hw_i2c
+/tests/svm40-test-sw_i2c
