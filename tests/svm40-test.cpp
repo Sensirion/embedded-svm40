@@ -3,12 +3,14 @@
 #include <inttypes.h>
 #include <stdio.h>
 
+#define MAX_VOC_INDEX 500
+#define MIN_VOC_INDEX 0
 #define MAX_VOC_RAW 65535
 #define MIN_VOC_RAW 0
 #define MAX_RH_RAW (119 * 100)
 #define MIN_RH_RAW (-6 * 100)
-#define MAX_T_RAW (130 * 200)
-#define MIN_T_RAW (-45 * 200)
+#define MAX_T (130 * 200)
+#define MIN_T (-45 * 200)
 
 TEST_GROUP (SVM40_Tests) {
     void setup() {
@@ -78,10 +80,12 @@ TEST (SVM40_Tests, SVM40_Test_Measurement) {
         &voc_index, &relative_humidity, &temperature);
     CHECK_ZERO_TEXT(error, "svm40_read_measured_values_as_integers");
 
+    CHECK_TRUE_TEXT(voc_index >= MIN_VOC_INDEX && voc_index <= MAX_VOC_INDEX,
+                    "svm40_read_measured_values_as_integers");
     CHECK_TRUE_TEXT(relative_humidity >= MIN_RH_RAW &&
                         relative_humidity <= MAX_RH_RAW,
                     "svm40_read_measured_values_as_integers");
-    CHECK_TRUE_TEXT(temperature >= MIN_T_RAW && temperature <= MAX_T_RAW,
+    CHECK_TRUE_TEXT(temperature >= MIN_T && temperature <= MAX_T,
                     "svm40_read_measured_values_as_integers");
 
     error = svm40_stop_measurement();
@@ -107,16 +111,18 @@ TEST (SVM40_Tests, SVM40_Test_Mesurement_Raw) {
     CHECK_ZERO_TEXT(error,
                     "svm40_read_measured_values_as_integers_with_raw_params");
 
+    CHECK_TRUE_TEXT(voc_index >= MIN_VOC_INDEX && voc_index <= MAX_VOC_INDEX,
+                    "svm40_read_measured_values_as_integers");
     CHECK_TRUE_TEXT(relative_humidity >= MIN_RH_RAW &&
                         relative_humidity <= MAX_RH_RAW,
                     "svm40_read_measured_values_as_integers_with_raw_params");
-    CHECK_TRUE_TEXT(temperature >= MIN_T_RAW && temperature <= MAX_T_RAW,
+    CHECK_TRUE_TEXT(temperature >= MIN_T && temperature <= MAX_T,
                     "svm40_read_measured_values_as_integers_with_raw_params");
     CHECK_TRUE_TEXT(uncompensated_relative_humidity_raw >= MIN_RH_RAW &&
                         uncompensated_relative_humidity_raw <= MAX_RH_RAW,
                     "svm40_read_measured_values_as_integers_with_raw_params");
-    CHECK_TRUE_TEXT(uncompensated_temperature >= MIN_T_RAW &&
-                        uncompensated_temperature <= MAX_T_RAW,
+    CHECK_TRUE_TEXT(uncompensated_temperature >= MIN_T &&
+                        uncompensated_temperature <= MAX_T,
                     "svm40_read_measured_values_as_integers_with_raw_params");
     CHECK_TRUE_TEXT(voc_ticks_raw >= MIN_VOC_RAW &&
                         voc_ticks_raw <= MAX_VOC_RAW,
