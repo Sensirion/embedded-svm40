@@ -31,3 +31,16 @@ test:
     - git clone -b 2.0.0 https://gitlab-ci-token:${CI_JOB_TOKEN}@gitlab/MSO-SW/drivers/testbed/i2c-mux-testbed.git
     - cd tests
     - make test
+
+arduino_ci:
+  stage: build
+  image:
+      name: registry.gitlab.sensirion.lokal/mso-sw/drivers/testbed/arduino-testbed-docker:0.2.0
+  tags: [docker, linux]
+  script:
+    - make release/svm40-arduino
+    - cp svm40/.arduino/Gemfile release/arduino-svm40/
+    - cp svm40/.arduino/.arduino-ci.yaml release/arduino-svm40/
+    - cd release/arduino-svm40/
+    - bundle install
+    - bundle exec arduino_ci_remote.rb
