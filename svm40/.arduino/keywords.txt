@@ -1,0 +1,25 @@
+#######################################
+# Syntax Coloring Map SVM40
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+svm40_version_information	KEYWORD1
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+svm40_probe	KEYWORD2
+svm40_get_version	KEYWORD2
+svm40_get_serial	KEYWORD2
+svm40_start_continuous_measurement	KEYWORD2
+svm40_stop_measurement	KEYWORD2
+svm40_read_measured_values_as_integers	KEYWORD2
+svm40_read_measured_values_as_integers_with_raw_params	KEYWORD2
+svm40_get_driver_version	KEYWORD2
+svm40_device_reset	KEYWORD2
+#######################################
+# Constants (LITERAL1)
+#######################################
+SVM40_MAX_SERIAL_LEN	LITERAL1
+NO_ERROR	LITERAL1

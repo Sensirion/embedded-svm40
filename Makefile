@@ -42,6 +42,30 @@ $(release_drivers): prepare
 	cd release && zip -r "$${pkgname}.zip" "$${pkgname}" && cd - && \
 	ln -sfn $${pkgname} $@
 
+
+release/svm40-arduino: prepare
+	export pkgname="arduino-svm40" && \
+	export pkgdir="release/$${pkgname}" && \
+	export arduinodir="svm40/.arduino/" && \
+	rm -rf "$${pkgdir}" && mkdir -p "$${pkgdir}/src" && \
+	mkdir -p "$${pkgdir}/examples/SVM40ExampleUsage" && \
+	cp embedded-common/hw_i2c/sample-implementations/arduino/sensirion_hw_i2c_implementation.cpp "$${pkgdir}/src" && \
+	cp embedded-common/sensirion_arch_config.h "$${pkgdir}/src" && \
+	cp embedded-common/sensirion_common.c "$${pkgdir}/src" && \
+	cp embedded-common/sensirion_common.h "$${pkgdir}/src" && \
+	cp embedded-common/sensirion_i2c.h "$${pkgdir}/src" && \
+	cp svm40/*.[hc] "$${pkgdir}/src" && \
+	cp "$${arduinodir}/svm40_example_usage_arduino.ino" "$${pkgdir}/examples/SVM40ExampleUsage/SVM40ExampleUsage.ino" && \
+	cp "$${arduinodir}/library.properties" "$${pkgdir}" && \
+	cp "$${arduinodir}/keywords.txt" "$${pkgdir}" && \
+	rm "$${pkgdir}/src/svm40_example_usage.c" && \
+	cp CHANGELOG.md LICENSE "$${pkgdir}" && \
+	mv "$${pkgdir}/src/svm40.c" "$${pkgdir}/src/$${pkgname}.c" && \
+	mv "$${pkgdir}/src/svm40.h" "$${pkgdir}/src/$${pkgname}.h" && \
+	sed -i -e "s/svm40.h/$${pkgname}.h/g" "$${pkgdir}/src/$${pkgname}.c" && \
+	cd release && zip -r "$${pkgname}.zip" "$${pkgname}" && cd -
+
+
 release: clean $(release_drivers)
 
 $(clean_drivers):
