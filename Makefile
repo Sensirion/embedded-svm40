@@ -58,6 +58,7 @@ release/svm40_arduino: prepare
 	cp embedded-common/sensirion_i2c.h "$${pkgdir}" && \
 	cp svm40/*.[hc] "$${pkgdir}" && \
 	cp "svm40/svm40_example_usage_arduino.ino" "$${pkgdir}" && \
+	cp README-ARDUINO.rst "release/$${pkgname}" && \
 	rm "$${pkgdir}/svm40_example_usage.c" && \
 	cd release && zip -r "$${pkgname}.zip" "$${pkgname}" && cd - && \
 	ln -sfn $${pkgname} $@
