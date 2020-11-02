@@ -5,6 +5,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+ * [`added`] Arduino release and documentation for this release
 ## [0.2.0] - 2020-11-02
 
  * `[added]`   Reset Device function
