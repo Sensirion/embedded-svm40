@@ -1,6 +1,6 @@
 drivers=svm40
 clean_drivers=$(foreach d, $(drivers), clean_$(d))
-release_drivers=$(foreach d, $(drivers), release/$(d))
+release_drivers=$(foreach d, $(drivers), release/$(d)) release/svm40_arduino
 
 .PHONY: FORCE all $(release_drivers) $(clean_drivers) style-check style-fix \
 	    prepare
@@ -36,9 +36,29 @@ $(release_drivers): prepare
 	cp embedded-common/sensirion_i2c.h "$${pkgdir}" && \
 	cp -r $${driver}/* "$${pkgdir}" && \
 	cp CHANGELOG.md LICENSE "$${pkgdir}" && \
+	rm "$${pkgdir}/svm40_example_usage_arduino.ino" && \
 	echo 'sensirion_common_dir = .' >> $${pkgdir}/user_config.inc && \
 	echo "$${driver}_dir = ." >> $${pkgdir}/user_config.inc && \
 	cd "$${pkgdir}" && $(MAKE) $(MFLAGS) && $(MAKE) clean $(MFLAGS) && cd - && \
+	cd release && zip -r "$${pkgname}.zip" "$${pkgname}" && cd - && \
+	ln -sfn $${pkgname} $@
+
+release/svm40_arduino: prepare
+	$(RM) $@
+	export rel=$@ && \
+	export driver=$${rel#release/} && \
+	export tag="$$(git describe --always --dirty)" && \
+	export pkgname="$${driver}-$${tag}" && \
+	export pkgdir="release/$${pkgname}/svm40_example_usage_arduino" && \
+	rm -rf "$${pkgdir}" && mkdir -p "$${pkgdir}" && \
+	cp embedded-common/hw_i2c/sample-implementations/arduino/sensirion_hw_i2c_implementation.cpp "$${pkgdir}" && \
+	cp embedded-common/sensirion_arch_config.h "$${pkgdir}" && \
+	cp embedded-common/sensirion_common.c "$${pkgdir}" && \
+	cp embedded-common/sensirion_common.h "$${pkgdir}" && \
+	cp embedded-common/sensirion_i2c.h "$${pkgdir}" && \
+	cp svm40/*.[hc] "$${pkgdir}" && \
+	cp "svm40/svm40_example_usage_arduino.ino" "$${pkgdir}" && \
+	rm "$${pkgdir}/svm40_example_usage.c" && \
 	cd release && zip -r "$${pkgname}.zip" "$${pkgname}" && cd - && \
 	ln -sfn $${pkgname} $@
 
