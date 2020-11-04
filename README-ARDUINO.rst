@@ -36,15 +36,15 @@ it doesn't work start the Arduino IDE, in the top bar click on File, Open... ,
 navigate to the unziped folder and open the ``.ino`` file.
 
 For some boards you need to install an additional package to be able to
-flash them via the Arduino IDE. This is done selecting the Menu items `Tools
-> Boards > Boards Manager`. Then you can type the name of your board in the
+flash them via the Arduino IDE. This is done selecting the Menu items ``Tools
+> Boards > Boards Manager``. Then you can type the name of your board in the
 search bar and install the respective package.
 
 Now you only need to upload the code to your board. Connect your Arduino board
 with your computer using an USB cable. Then you'll need to select the entry in
-the `Tools > Board` menu that corresponds to your Arduino board. Finally you
+the ``Tools > Board`` menu that corresponds to your Arduino board. Finally you
 also need to select the right port where your Arduino is connected. For this
-navigate to `Tools > Port` and select the one indicating that your board is
+navigate to ``Tools > Port`` and select the one indicating that your board is
 connected there (name of your board at the end in brackets). To now upload your
 code to your board click the arrow icon in the top lefthand corner. This
 process can take a while.
@@ -52,8 +52,8 @@ process can take a while.
 Checkout Sensor Data
 --------------------
 
-To look at the senor data open the serial monitor by navigating to `Tools >
-Serial Monitor`. If everything worked fine and your Arduino is still connected
+To look at the senor data open the serial monitor by navigating to ``Tools >
+Serial Monitor``. If everything worked fine and your Arduino is still connected
 you now should see the measuring data of the Sensor.
 
 ::
