@@ -31,6 +31,39 @@ void setup() {
   }
   Serial.println("SVM40 sensor probing successful");
 
+  svm40_version_information version_information;
+  err = svm40_get_version(&version_information);
+  if (err) {
+    Serial.print("Error reading SVM40 version: ");
+    Serial.println(err);
+  } else {
+    if (version_information.firmware_debug) {
+      Serial.print("Development firmware version: ");
+    }
+    Serial.print("FW: ");
+    Serial.print((int)version_information.firmware_major);
+    Serial.print(".");
+    Serial.print((int)version_information.firmware_minor);
+
+    Serial.print(", HW: ");
+    Serial.print((int)version_information.hardware_major);
+    Serial.print(".");
+    Serial.print((int)version_information.hardware_minor);
+
+    Serial.print(", protocol: ");
+    Serial.print((int)version_information.protocol_major);
+    Serial.print(".");
+    Serial.println((int)version_information.protocol_minor);
+
+    // check if firmware is older than 2.2
+    if (version_information.firmware_major < 2 ||
+        (version_information.firmware_major == 2 &&
+         version_information.firmware_minor < 2)) {
+      Serial.println("Warning: Old firmware version which may return constant "
+             "values after a few hours of operation");
+    }
+  }
+
   char serial_id[SVM40_MAX_SERIAL_LEN];
   err = svm40_get_serial(serial_id);
   if (err) {

@@ -81,6 +81,14 @@ int main(void) {
                version_information.hardware_minor,
                version_information.protocol_major,
                version_information.protocol_minor);
+
+        // check if firmware is older than 2.2
+        if (version_information.firmware_major < 2 ||
+            (version_information.firmware_major == 2 &&
+             version_information.firmware_minor < 2)) {
+            printf("Warning: Old firmware version which may return constant "
+                   "values after a few hours of operation\n");
+        }
     }
 
     error = svm40_start_continuous_measurement();
