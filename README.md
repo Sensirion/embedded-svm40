@@ -16,6 +16,15 @@ page](https://github.com/Sensirion/embedded-svm40/releases/)**
 We strongly recommend to use the driver from the release bundle instead of
 cloning the repository.
 
+## Upgrade the Firmware of the SVM40 Module
+
+Firmware versions before 2.2 contain a bug where the sensor will return
+constant measurement values after a few hours of operation (see
+https://github.com/Sensirion/embedded-svm40/issues/21).
+
+Use [Sensirion ControlCenter](https://www.sensirion.com/en/controlcenter/) to
+upgrade the firmware of your device.
+
 ## Clone this repository
 ```
  git clone --recursive https://github.com/Sensirion/embedded-svm40.git
