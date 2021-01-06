@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.2.3] - 2021-01-06
 
- * `[changed]` Warn if the firmware version is older than 2.2 in the examples
+ * `[changed]` Print warning if the firmware version is older than 2.2 in the examples
 
 ## [0.2.2] - 2020-12-15
 
